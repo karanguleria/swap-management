@@ -18,7 +18,19 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::post('/login/custom',[
     'uses'=>'loginController@login',
     'as'=>'login.custom'
 ]);
+/**
+ * user authication 
+ */
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/home',function(){
+      return view('home');
+    })->name('home');;
+    Route::get('/dashbord',function(){
+        return view('dashbord');
+      })->name('dashbord');
+});
